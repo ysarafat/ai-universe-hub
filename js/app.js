@@ -2,7 +2,9 @@
 const loadAiData = () => {
     const URL = 'https://openapi.programming-hero.com/api/ai/tools'
     fetch(URL)
-        .then(res => res.json()).then(data => displayData(data.data.tools.slice(0, 6)))
+        .then(res => res.json()).then(data => {
+            displayData(data.data.tools.slice(0, 6))
+        })
     spinner(true)
 
 }
@@ -31,7 +33,7 @@ const displayData = (data) => {
                                 <p><i class="fa-solid fa-calendar-days"></i> <span>${published_in}</span></p>
                             </div>
                             <div>
-                                <button class="btn btn-error text-white my-6 rounded-full bg-red-200 hover:bg-red-200 border-none "><i class="fa-solid fa-arrow-right text-red-400 text-lg"></i></button>
+                                <label for="my-modal-3" class="btn btn-error text-white my-6 rounded-full bg-red-200 hover:bg-red-200 border-none "><i class="fa-solid fa-arrow-right text-red-400 text-lg"></i></label>
                             </div>
                         </div>
                     </div>
@@ -58,3 +60,5 @@ document.getElementById('see-more').addEventListener('click', function () {
     fetch(URL)
         .then(res => res.json()).then(data => displayData(data.data.tools))
 })
+
+
