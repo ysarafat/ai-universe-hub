@@ -2,7 +2,7 @@
 const loadAiData = () => {
     const URL = 'https://openapi.programming-hero.com/api/ai/tools'
     fetch(URL)
-        .then(res => res.json()).then(data => displayData(data.data.tools))
+        .then(res => res.json()).then(data => displayData(data.data.tools.slice(0, 6)))
     spinner(true)
 
 }
@@ -10,6 +10,7 @@ const loadAiData = () => {
 const displayData = (data) => {
     console.log(data);
     const getCardSection = document.getElementById('ai-card')
+    getCardSection.innerHTML = "";
     data.forEach(data => {
         const { name, image, published_in, features } = data
         const createDiv = document.createElement('div')
@@ -49,4 +50,11 @@ const spinner = loading => {
     } else {
         getSpinner.classList.add('hidden')
     }
-}
+};
+
+// see more button
+document.getElementById('see-more').addEventListener('click', function () {
+    const URL = 'https://openapi.programming-hero.com/api/ai/tools'
+    fetch(URL)
+        .then(res => res.json()).then(data => displayData(data.data.tools))
+})
