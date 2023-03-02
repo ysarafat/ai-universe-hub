@@ -3,6 +3,8 @@ const loadAiData = () => {
     const URL = 'https://openapi.programming-hero.com/api/ai/tools'
     fetch(URL)
         .then(res => res.json()).then(data => displayData(data.data.tools))
+    spinner(true)
+
 }
 // display the data on ui
 const displayData = (data) => {
@@ -35,5 +37,16 @@ const displayData = (data) => {
                 </div>
         `;
         getCardSection.appendChild(createDiv)
+        spinner(false)
     });
+};
+
+// spinner function
+const spinner = loading => {
+    const getSpinner = document.getElementById('spinner')
+    if (loading) {
+        getSpinner.classList.remove('hidden')
+    } else {
+        getSpinner.classList.add('hidden')
+    }
 }
