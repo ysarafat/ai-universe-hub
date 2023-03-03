@@ -4,11 +4,10 @@ const loadAiData = () => {
     fetch(URL)
         .then(res => res.json()).then(data => {
             displayData(data.data.tools.slice(0, 6))
-
         })
     spinner(true)
-
 }
+
 // display the data on ui
 const displayData = (data) => {
     // console.log(data);
@@ -42,7 +41,6 @@ const displayData = (data) => {
         `;
         getCardSection.appendChild(createDiv)
         spinner(false)
-
     });
 };
 
@@ -65,11 +63,8 @@ document.getElementById('see-more').addEventListener('click', function () {
     fetch(URL)
         .then(res => res.json()).then(data => {
             displayData(data.data.tools);
-
-
         })
 })
-
 
 // modal function
 const openModal = (id) => {
@@ -79,12 +74,10 @@ const openModal = (id) => {
 
 // display modal
 const modaldisplay = data => {
-    console.log(data);
     const { description, pricing, features, integrations, image_link, accuracy, input_output_examples
     } = data
     const modals = document.getElementById('modal-cards')
     modals.innerHTML = "";
-    // const creatediv = document.createComment('div')
     modals.innerHTML = `
     <div class="flex gap-4 justify-center items-center flex-col md:flex-row py-6 md:py-4">
     <div class="card w-full max-w-[480px] h-full bg-base-100 shadow-xl ">
@@ -146,19 +139,18 @@ const modaldisplay = data => {
         </div>
     </div>
 </div>
-            `
+            `;
 }
-// 12541
+
+// fetch data for sorting
 document.getElementById('sort-by-date').addEventListener('click', function () {
     const URL = 'https://openapi.programming-hero.com/api/ai/tools'
     fetch(URL)
         .then(res => res.json()).then(data => {
             sortByDate(data.data.tools);
-
-
         })
-
 })
+
 // sort by date function
 const sortByDate = (data) => {
     const sortedData = data.sort((a, b) => {
