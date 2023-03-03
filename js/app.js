@@ -47,10 +47,13 @@ const displayData = (data) => {
 // spinner function
 const spinner = loading => {
     const getSpinner = document.getElementById('spinner')
+    const seeMoreButton = document.getElementById('see-more')
     if (loading) {
         getSpinner.classList.remove('hidden')
+        seeMoreButton.classList.add('hidden')
     } else {
         getSpinner.classList.add('hidden')
+        seeMoreButton.classList.remove('hidden')
     }
 };
 
