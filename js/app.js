@@ -125,8 +125,8 @@ const modaldisplay = data => {
         </figure>
         <div>
             <div
-                class=" w-[160px] text-center relative -mt-52 md:ml-[280px] mx-auto">
-                <span class="bg-red-500 text-white p-2 font-bold text-lg rounded-xl">${(accuracy !== null) ? accuracy.score * 100 + '% accuracy' : ""} </span> 
+                class="bg-red-500 text-lg w-[160px] text-center relative -mt-52 md:ml-[270px] mx-auto rounded-xl">
+                <span class= text-white p-2 font-bold ">${(accuracy.score !== null) ? accuracy.score * 100 + '% accuracy' : ""} </span> 
 
             </div>
         </div>
