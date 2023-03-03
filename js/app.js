@@ -14,7 +14,7 @@ const displayData = (data) => {
     const getCardSection = document.getElementById('ai-card')
     getCardSection.innerHTML = "";
     data.forEach(data => {
-        const { name, image, published_in, features } = data
+        const { id, name, image, published_in, features } = data
         const createDiv = document.createElement('div')
         createDiv.innerHTML = `
         <div class="card w-96 bg-base-100 border border-gray-100 shadow-xl">
@@ -22,18 +22,18 @@ const displayData = (data) => {
                     <div class="card-body px-5 ">
                         <h2 class="card-title">Features </h2>
                         <ol class="list-decimal	px-5">
-                            <li>${features[0]}</li>
-                            <li>${features[1]}</li>
-                            <li>${features[2]}</li>
+                            <li>${features[0] ? features[0] : "No data found"}</li>
+                            <li>${features[1] ? features[1] : "No data found"}</li>
+                            <li>${features[2] ? features[2] : "No data found"}</li>
                         </ol>
                         <hr>
                         <div class="flex justify-between items-center">
                             <div>
                                 <h2 class="card-title">${name}</h2>
-                                <p><i class="fa-solid fa-calendar-days"></i> <span>${published_in}</span></p>
+                                <p><i class="fa-solid fa-calendar-days"></i> <span>${published_in ? published_in : "no data"}</span></p>
                             </div>
                             <div>
-                                <label for="my-modal-3" class="btn btn-error text-white my-6 rounded-full bg-red-200 hover:bg-red-200 border-none "><i class="fa-solid fa-arrow-right text-red-400 text-lg"></i></label>
+                                <label onclick="openModal('${id}')" for="my-modal-3" class="btn btn-error text-white my-6 rounded-full bg-red-200 hover:bg-red-200 border-none "><i class="fa-solid fa-arrow-right text-red-400 text-lg"></i></label>
                             </div>
                         </div>
                     </div>
@@ -62,3 +62,80 @@ document.getElementById('see-more').addEventListener('click', function () {
 })
 
 
+// modal function
+const openModal = (id) => {
+    fetch(`https://openapi.programming-hero.com/api/ai/tool/${id}`)
+        .then(res => res.json()).then(data => modaldisplay(data.data))
+}
+
+// display modal
+const modaldisplay = data => {
+    console.log(data);
+    const { description, pricing, features, integrations, image_link, accuracy
+    } = data
+    const modals = document.getElementById('modal-cards')
+    modals.innerHTML = "";
+    // const creatediv = document.createComment('div')
+    modals.innerHTML = `
+    <div class="flex gap-4 justify-center items-center flex-col md:flex-row py-6 md:py-4">
+    <div class="card w-full max-w-[480px] h-full bg-base-100 shadow-xl ">
+        <div class="card-body border border-red-400 bg-red-100 rounded-lg ">
+            <h2 id="description" class="card-title">${description}</h2>
+            <div
+                class="flex justify-center flex-col md:flex-row items-center gap-2 w-full max-[470px] px-10">
+                <div class="w-auto py-5 px-2 rounded-lg bg-white">
+                    <p id="price-basic" class="text-green-500 font-semibold text-lg">${(pricing === null) ? 'No Cost' : pricing[0].price} <br> ${(pricing === null) ? '' : pricing[0].plan}</p>
+                </div>
+                <div class="w-auto py-5 px-2 rounded-lg bg-white">
+                    <p id="price-pro" class="text-orange-500 font-semibold text-lg">${(pricing === null) ? 'No Cost' : pricing[1].price} <br> ${(pricing === null) ? '' : pricing[1].plan}</p>
+                </div>
+                <div class="w-auto py-5 px-2 rounded-lg bg-white">
+                    <p id="price-enterprise" class="text-red-500 font-semibold ">${(pricing === null) ? 'No Cost' : pricing[2].price} <br> ${(pricing === null) ? '' : pricing[2].plan}</p>
+                </div>
+
+            </div>
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class=" py-3">
+                    <h2 class="card-title font-semibold">Features</h2>
+                    <ol class="list-disc px-4">
+                        <li id="features-1">${features[1].feature_name ? features[1].feature_name : "no data found"}</li>
+                        <li id="features-2">${features[2].feature_name ? features[2].feature_name : "no data found"}</li>
+                        <li id="features-3">${features[3].feature_name ? features[3].feature_name : "no data found"}</li>
+                    </ol>
+                </div>
+                <div>
+                    <h2 class="card-title font-semibold">Integrations</h2>
+
+                    <ol class="list-disc px-4">
+                        <li id="integrations-1">${(integrations === null) ? 'No data found' : integrations[0]}</li>
+                        <li id="integrations-2">${(integrations === null || integrations[1] === undefined) ? 'No data found' : integrations[1]} </li>
+                        <li id="integrations-3"> ${(integrations === null || integrations[1] === undefined) ? 'No data found' : integrations[2]}</li>
+                    </ol>
+                </div>
+
+            </div>
+        </div>
+    </div>
+   
+    <div
+        class="card w-full max-w-[480px] h-full bg-base-100 rounded-lg shadow-xl border border-gray-200 ">
+        <figure id="image" class="px-5 pt-5 ">
+            <img class="rounded h-[220px] w-full" src="${image_link[0]}"
+                alt="Ai image" />
+        </figure>
+        <div>
+            <div
+                class="bg-red-500 text-white p-2 font-bold text-lg rounded-xl w-[160px] text-center relative -mt-52 md:ml-[280px] mx-auto">
+                <span>${(accuracy === null) ? '' : accuracy.score * 100 + '% accuracy'} </span> 
+
+            </div>
+        </div>
+        <div class="card-body px-5 text-center ">
+            <h2 id="card-title" class="card-title mx-auto">Hi, how are you doing today? </h2>
+            <p>I'm doing well, thank you for asking. How can I assist you today?</p>
+
+        </div>
+    </div>
+</div>
+            `
+}
