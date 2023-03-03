@@ -4,13 +4,14 @@ const loadAiData = () => {
     fetch(URL)
         .then(res => res.json()).then(data => {
             displayData(data.data.tools.slice(0, 6))
+
         })
     spinner(true)
 
 }
 // display the data on ui
 const displayData = (data) => {
-    console.log(data);
+    // console.log(data);
     const getCardSection = document.getElementById('ai-card')
     getCardSection.innerHTML = "";
     data.forEach(data => {
@@ -41,6 +42,7 @@ const displayData = (data) => {
         `;
         getCardSection.appendChild(createDiv)
         spinner(false)
+
     });
 };
 
@@ -61,7 +63,11 @@ const spinner = loading => {
 document.getElementById('see-more').addEventListener('click', function () {
     const URL = 'https://openapi.programming-hero.com/api/ai/tools'
     fetch(URL)
-        .then(res => res.json()).then(data => displayData(data.data.tools))
+        .then(res => res.json()).then(data => {
+            displayData(data.data.tools);
+
+
+        })
 })
 
 
@@ -142,3 +148,23 @@ const modaldisplay = data => {
 </div>
             `
 }
+// 12541
+document.getElementById('sort-by-date').addEventListener('click', function () {
+    const URL = 'https://openapi.programming-hero.com/api/ai/tools'
+    fetch(URL)
+        .then(res => res.json()).then(data => {
+            sortByDate(data.data.tools);
+
+
+        })
+
+})
+// sort by date function
+const sortByDate = (data) => {
+    const sortedData = data.sort((a, b) => {
+        const dateA = new Date(a.published_in);
+        const dateB = new Date(b.published_in);
+        return dateB - dateA;
+    });
+    displayData(sortedData);
+};
