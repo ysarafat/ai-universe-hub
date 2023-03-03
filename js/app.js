@@ -83,14 +83,14 @@ const modaldisplay = data => {
             <h2 id="description" class="card-title">${description}</h2>
             <div
                 class="flex justify-center flex-col md:flex-row items-center gap-2 w-full max-[470px] px-10">
-                <div class="w-auto py-5 px-2 rounded-lg bg-white">
+                <div class="w-40 text-center py-5 px-2 rounded-lg bg-white">
                     <p id="price-basic" class="text-green-500 font-semibold text-lg">${(pricing === null) ? 'No Cost' : pricing[0].price} <br> ${(pricing === null) ? '' : pricing[0].plan}</p>
                 </div>
-                <div class="w-auto py-5 px-2 rounded-lg bg-white">
+                <div class=" w-40 text-center py-5 px-2 rounded-lg bg-white">
                     <p id="price-pro" class="text-orange-500 font-semibold text-lg">${(pricing === null) ? 'No Cost' : pricing[1].price} <br> ${(pricing === null) ? '' : pricing[1].plan}</p>
                 </div>
-                <div class="w-auto py-5 px-2 rounded-lg bg-white">
-                    <p id="price-enterprise" class="text-red-500 font-semibold ">${(pricing === null) ? 'No Cost' : pricing[2].price} <br> ${(pricing === null) ? '' : pricing[2].plan}</p>
+                <div class="w-40 text-center py-5 px-2 rounded-lg bg-white">
+                    <p id="w-40 price-enterprise" class="text-red-500 font-semibold ">${(pricing === null) ? 'No Cost' : pricing[2].price} <br> ${(pricing === null) ? '' : pricing[2].plan}</p>
                 </div>
 
             </div>
