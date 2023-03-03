@@ -71,7 +71,7 @@ const openModal = (id) => {
 // display modal
 const modaldisplay = data => {
     console.log(data);
-    const { description, pricing, features, integrations, image_link, accuracy
+    const { description, pricing, features, integrations, image_link, accuracy, input_output_examples
     } = data
     const modals = document.getElementById('modal-cards')
     modals.innerHTML = "";
@@ -125,14 +125,14 @@ const modaldisplay = data => {
         </figure>
         <div>
             <div
-                class="bg-red-500 text-white p-2 font-bold text-lg rounded-xl w-[160px] text-center relative -mt-52 md:ml-[280px] mx-auto">
-                <span>${(accuracy === null) ? '' : accuracy.score * 100 + '% accuracy'} </span> 
+                class=" w-[160px] text-center relative -mt-52 md:ml-[280px] mx-auto">
+                <span class="bg-red-500 text-white p-2 font-bold text-lg rounded-xl">${(accuracy !== null) ? accuracy.score * 100 + '% accuracy' : ""} </span> 
 
             </div>
         </div>
         <div class="card-body px-5 text-center ">
-            <h2 id="card-title" class="card-title mx-auto">Hi, how are you doing today? </h2>
-            <p>I'm doing well, thank you for asking. How can I assist you today?</p>
+            <h2 id="card-title" class="card-title mx-auto">${(input_output_examples !== null) ? input_output_examples[0].input : "No data Found"}</h2>
+            <p>${(input_output_examples !== null) ? input_output_examples[0].output : "No! Not Yet! Take a break!!!"}</p>
 
         </div>
     </div>
