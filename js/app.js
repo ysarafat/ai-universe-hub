@@ -64,6 +64,7 @@ document.getElementById('see-more').addEventListener('click', function () {
         .then(res => res.json()).then(data => {
             displayData(data.data.tools);
         })
+    document.getElementById('see-more').innerHTML = ""
 })
 
 // modal function
